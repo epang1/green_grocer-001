@@ -62,6 +62,7 @@ describe "Grocer" do
       end
 
       it "adds the coupon price to the property hash of couponed item" do
+
         expect(@avocado_result["AVOCADO W/COUPON"][:price]).to eq(5.00)
       end
 
@@ -70,7 +71,9 @@ describe "Grocer" do
       end
 
       it "removes the number of discounted items from the original item's count" do
+
         expect(@avocado_result["AVOCADO"][:price]).to eq(3.00)
+
         expect(@avocado_result["AVOCADO"][:count]).to eq(0)
       end
 
@@ -216,7 +219,9 @@ describe "Grocer" do
         coupons = [find_coupon('BEER')]
 
         consolidated = consolidate_cart(cart: cart)
+
         coupons_applied = apply_coupons(cart: consolidated, coupons: coupons)
+
         clearance_applied = apply_clearance(cart: coupons_applied)
 
         expect(self).to receive(:consolidate_cart).with(cart: cart).and_return(consolidated)
@@ -224,6 +229,7 @@ describe "Grocer" do
         expect(self).to receive(:apply_clearance).with(cart: coupons_applied).and_return(clearance_applied)
 
         expect(checkout(cart: cart, coupons: coupons)).to eq(35.50)
+
       end
 
       it "calls on #apply_clearance after calling on #apply_coupons with multiple items, coupons, and items are on clearance" do
